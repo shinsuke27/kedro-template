@@ -1,0 +1,11 @@
+train:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/train.csv
+
+test:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/test.csv
+
+train_pdp: 
+  type: text.TextDataSet
+  filepath: data/08_reporting/train_pdp.html

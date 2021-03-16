@@ -1,0 +1,20 @@
+##########################
+# Kedro PROJECT
+
+# ignore Dockerfile, docker-compose.yml and .dockerignore
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# ignore everything in the following folders
+data
+logs
+notebooks
+references
+results
+
+# except the following
+!logs/.gitkeep
+!notebooks/.gitkeep
+!references/.gitkeep
+!results/.gitkeep

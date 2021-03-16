@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  kedro:
+    image: "${PROJECT_NAME}"
+    build:
+      context: .
+      target: kedro
+    volumes:
+      - .:${WORKING_DIR}
+
+    working_dir: ${WORKING_DIR}
+    ports:
+      - "8888:8888"
+    environment:
+      HOME: ${WORKING_DIR}
+    command: kedro jupyter notebook --port 8888 --ip=0.0.0.0 --no-browser --allow-root --NotebookApp.token=''
+
+  mlflow:
+    build:
+      context: .
+      target: mlflow
+    volumes:
+      - ./mlflow/mlruns:/home/mlflow/mlruns
+
+    working_dir: /home/mlflow
+    depends_on:
+      - kedro
+    ports:
+      - "5000:5000"
+    environment:
+      HOME: /home/mlflow
+    command: mlflow server --backend-store-uri /home/mlflow/mlruns --default-artifact-root ${DEFAULT_ARTIFACE_ROOT} --host 0.0.0.0 --port 5000
